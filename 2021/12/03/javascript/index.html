@@ -1,0 +1,266 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>javascript | zx的博客</title><meta name="keywords" content="博客,zx"><meta name="author" content="zengxiang"><meta name="copyright" content="zengxiang"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="javascriptjavascript执行顺序同步和异步同步任务同步任务都在主线程上执行，形成一个执行栈 异步任务javascript的异步是通过回调函数实现的 一般而言异步任务有三种类型：  普通事件，click，resize 资源加载，load，error 定时器，setInterval，setTimeout  执行机制 先执行执行栈中的同步任务 异步任务(回调函数)放入任务队列 一旦执行栈">
+<meta property="og:type" content="article">
+<meta property="og:title" content="javascript">
+<meta property="og:url" content="https://zengxiang21.github.io/2021/12/03/javascript/index.html">
+<meta property="og:site_name" content="zx的博客">
+<meta property="og:description" content="javascriptjavascript执行顺序同步和异步同步任务同步任务都在主线程上执行，形成一个执行栈 异步任务javascript的异步是通过回调函数实现的 一般而言异步任务有三种类型：  普通事件，click，resize 资源加载，load，error 定时器，setInterval，setTimeout  执行机制 先执行执行栈中的同步任务 异步任务(回调函数)放入任务队列 一旦执行栈">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://picsum.photos/id/888/5184/2916">
+<meta property="article:published_time" content="2021-12-03T02:26:32.299Z">
+<meta property="article:modified_time" content="2021-12-12T02:28:25.000Z">
+<meta property="article:author" content="zengxiang">
+<meta property="article:tag" content="博客,zx">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://picsum.photos/id/888/5184/2916"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://zengxiang21.github.io/2021/12/03/javascript/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'javascript',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-12-12 10:28:25'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="zx的博客" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/./img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">11</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 音视频</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://picsum.photos/id/888/5184/2916')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">zx的博客</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 音视频</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">javascript</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-12-03T02:26:32.299Z" title="发表于 2021-12-03 10:26:32">2021-12-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-12-12T02:28:25.000Z" title="更新于 2021-12-12 10:28:25">2021-12-12</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="javascript"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="javascript"><a href="#javascript" class="headerlink" title="javascript"></a>javascript</h1><h2 id="javascript执行顺序"><a href="#javascript执行顺序" class="headerlink" title="javascript执行顺序"></a>javascript执行顺序</h2><h3 id="同步和异步"><a href="#同步和异步" class="headerlink" title="同步和异步"></a>同步和异步</h3><h4 id="同步任务"><a href="#同步任务" class="headerlink" title="同步任务"></a>同步任务</h4><p>同步任务都在主线程上执行，形成一个执行栈</p>
+<h4 id="异步任务"><a href="#异步任务" class="headerlink" title="异步任务"></a>异步任务</h4><p>javascript的异步是通过回调函数实现的</p>
+<p>一般而言异步任务有三种类型：</p>
+<ol>
+<li>普通事件，click，resize</li>
+<li>资源加载，load，error</li>
+<li>定时器，setInterval，setTimeout</li>
+</ol>
+<h3 id="执行机制"><a href="#执行机制" class="headerlink" title="执行机制"></a>执行机制</h3><ol>
+<li>先执行执行栈中的同步任务</li>
+<li>异步任务(回调函数)放入任务队列</li>
+<li>一旦执行栈中的所有同步任务执行完毕，系统就会按次序读取任务队列中的异步任务，于是被读取的异步任务结束等待状态，进入执行栈，开始执行。</li>
+</ol>
+<p><img src="https://i.loli.net/2021/11/22/mjqvl8zLbsJxBaw.png" alt="image-20211122110618997"></p>
+<p><img src="https://i.loli.net/2021/11/22/gHMriDfIl96x5Re.png" alt="img"></p>
+<p>执行顺序如下：</p>
+<ul>
+<li>同步任务：进入主线程后，立即执行。</li>
+<li>异步任务：会先进入 Event Table；等时间到了之后，再进入 Event Queue，然后排队（为什么要排队？因为同一时间，JS 只能执行一个任务）。比如说，<code>setTimeout(()=&gt; &#123;&#125;, 1000)</code>这种定时器任务，需要等一秒之后再进入 Event Queue。</li>
+<li>当主线程的任务执行完毕之后，此时主线程处于空闲状态，于是会去读取 Event Queue 中的任务队列，如果有任务，则进入到主线程去执行。</li>
+</ul>
+<p><img src="https://i.loli.net/2021/11/22/5NLr2IvK6OzWSdT.png" alt="image-20211122111623612"></p>
+<h2 id="location"><a href="#location" class="headerlink" title="location"></a>location</h2><h3 id="url"><a href="#url" class="headerlink" title="url"></a>url</h3><p><img src="https://i.loli.net/2021/11/22/qvz2HU4pLk1OafN.png" alt="image-20211122112504936"></p>
+<p><img src="https://i.loli.net/2021/11/22/Zk4wIMhDmsiE9Ly.png" alt="image-20211122112535135"></p>
+<h2 id="navigator"><a href="#navigator" class="headerlink" title="navigator"></a>navigator</h2><p>navigator对象包含浏览器信息，含有很多属性，最常用的是userAgent,返回客户端发给服务器的user-agent头部的值</p>
+<p>useagent显示登录设备</p>
+<h2 id="history"><a href="#history" class="headerlink" title="history"></a>history</h2><p><img src="https://i.loli.net/2021/11/23/6Nn7wIhzWfTxKFm.png" alt="image-20211123163927802"></p>
+<h2 id="网页特效"><a href="#网页特效" class="headerlink" title="网页特效"></a>网页特效</h2><h3 id="元素偏移量offset"><a href="#元素偏移量offset" class="headerlink" title="元素偏移量offset"></a>元素偏移量offset</h3><p>可以使用offset相关属性动态获取该元素的位置、大小等</p>
+<ul>
+<li>获取元素距离有定位父元素的位置</li>
+<li>获得元素自身的大小</li>
+<li>返回数值不带单位</li>
+</ul>
+<p><img src="https://i.loli.net/2021/11/23/BinIKzxOfMTXjra.png" alt="image-20211123164749989"></p>
+<p><img src="https://i.loli.net/2021/11/23/lK1kJLG48q7Ar9Q.png" alt="image-20211123170838537"></p>
+<p>style没法获取内嵌样式表里的属性大小，只能获取行内样式表里的大小</p>
+<p>就是style标签里的不行。</p>
+<p>获取用offset，修改用style</p>
+<h3 id="案例：拖动div"><a href="#案例：拖动div" class="headerlink" title="案例：拖动div"></a>案例：拖动div</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;</span><br><span class="line">    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;</span><br><span class="line">    &lt;title&gt;Document&lt;/title&gt;</span><br><span class="line">    &lt;style&gt;</span><br><span class="line">        .box &#123;</span><br><span class="line">            width: 200px;</span><br><span class="line">            height: 200px;</span><br><span class="line">            background-color: purple;</span><br><span class="line">            margin: 100px;</span><br><span class="line">        &#125;</span><br><span class="line">    &lt;/style&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line"></span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;div class=&quot;box&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">    &lt;script&gt;</span><br><span class="line">        var box = document.querySelector(&#x27;.box&#x27;);</span><br><span class="line">        box.addEventListener(&#x27;mousedown&#x27;, function (e) &#123;</span><br><span class="line">            var x = e.pageX - this.offsetLeft;</span><br><span class="line">            var y = e.pageY - this.offsetTop;</span><br><span class="line">            console.log(x);</span><br><span class="line">            console.log(y);</span><br><span class="line">            function move(e) &#123;</span><br><span class="line">                box.style.marginLeft = e.pageX - x + &#x27;px&#x27;;</span><br><span class="line">                box.style.marginTop = e.pageY - y + &#x27;px&#x27;;</span><br><span class="line">            &#125;</span><br><span class="line">            document.addEventListener(&#x27;mousemove&#x27;, move);</span><br><span class="line">            document.addEventListener(&#x27;mouseup&#x27;, function () &#123;</span><br><span class="line">                document.removeEventListener(&#x27;mousemove&#x27;, move);</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;)</span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line"></span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="元素可视区client"><a href="#元素可视区client" class="headerlink" title="元素可视区client"></a>元素可视区client</h3><p>使用client属性获取元素可是去的相关信息，通过client可以动态获得该元素边框大小、元素大小。</p>
+<p><img src="https://i.loli.net/2021/11/23/kQ3FBsKPCtnSdJp.png" alt="image-20211123202414214"></p>
+<h3 id="元素滚动scroll"><a href="#元素滚动scroll" class="headerlink" title="元素滚动scroll"></a>元素滚动scroll</h3><p>可以动态的到元素的大小、滚动距离</p>
+<p><img src="https://i.loli.net/2021/11/23/D8alTbrWhgGy5Pz.png" alt="image-20211123205310081"></p>
+<p><img src="https://i.loli.net/2021/11/23/osEhX93ntQYi5Zp.png" alt="image-20211123205401675"></p>
+<p><img src="https://i.loli.net/2021/11/23/Rk3BqN7f5jJhwCt.png" alt="image-20211123210548516"></p>
+<p><img src="https://i.loli.net/2021/11/23/Arjb9ZUxQtcq2s6.png" alt="image-20211123210705222"></p>
+<h2 id="立即执行函数"><a href="#立即执行函数" class="headerlink" title="立即执行函数"></a>立即执行函数</h2><p>(function(){}())或者(function(){})()：不需要调用，立即执行</p>
+<h2 id="mouseover和mouseenter"><a href="#mouseover和mouseenter" class="headerlink" title="mouseover和mouseenter"></a>mouseover和mouseenter</h2><p>mouserover鼠标经过自身盒子会触发，经过子盒子也会触发</p>
+<p>mouseenter鼠标只有经过自身盒子会触发</p>
+<p>mouseenter和mouseleave不会冒泡</p>
+<h2 id="动画"><a href="#动画" class="headerlink" title="动画"></a>动画</h2><p><strong>核心原理</strong>：通过定时器setInterval()不断移动盒子</p>
+<p><strong>实现步骤：</strong></p>
+<ol>
+<li>获得盒子位置</li>
+<li>让盒子在当前位置加上一个移动距离</li>
+<li>利用定时器不断重复这个操作</li>
+<li>加一个定时器结束条件</li>
+<li><strong>此元素需要加定位才能用element.style.left</strong></li>
+</ol>
+<p>CSS中动画使用keyframes</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;</span><br><span class="line">    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;</span><br><span class="line">    &lt;title&gt;Document&lt;/title&gt;</span><br><span class="line">    &lt;style&gt;</span><br><span class="line">        @keyframes move &#123;</span><br><span class="line">            from &#123;</span><br><span class="line">                transform: translate(0, 0);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            to &#123;</span><br><span class="line">                transform: translate(1000px, 0);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        div &#123;</span><br><span class="line">            width: 200px;</span><br><span class="line">            height: 200px;</span><br><span class="line">            background-color: pink;</span><br><span class="line">            animation-name: move;</span><br><span class="line">            animation-duration: 2s;</span><br><span class="line">            animation-iteration-count: infinite;</span><br><span class="line">            animation-direction: alternate-reverse;</span><br><span class="line">            animation: move 2s ease 0s infinite alternate forwards;</span><br><span class="line">        &#125;</span><br><span class="line">    &lt;/style&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line"></span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;div&gt;&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">&lt;/body&gt;</span><br><span class="line"></span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<p>js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;</span><br><span class="line">    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;</span><br><span class="line">    &lt;title&gt;Document&lt;/title&gt;</span><br><span class="line">    &lt;style&gt;</span><br><span class="line">        div &#123;</span><br><span class="line">            position: absolute;</span><br><span class="line">            width: 200px;</span><br><span class="line">            height: 200px;</span><br><span class="line">            background-color: pink;</span><br><span class="line">        &#125;</span><br><span class="line">    &lt;/style&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line"></span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;div&gt;&lt;/div&gt;</span><br><span class="line">    &lt;script&gt;</span><br><span class="line">        var div = document.querySelector(&#x27;div&#x27;);</span><br><span class="line">        var timer = setInterval(function () &#123;</span><br><span class="line">            if (div.offsetLeft &gt;= 400) &#123;</span><br><span class="line">                clearInterval(timer);</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">            div.style.left = div.offsetLeft + 10 + &#x27;px&#x27;;</span><br><span class="line">        &#125;, 10)</span><br><span class="line"></span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line"></span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="动画函数封装"><a href="#动画函数封装" class="headerlink" title="动画函数封装"></a>动画函数封装</h2><p><strong>动画对象</strong>+<strong>移动的距离</strong></p>
+<p>function animate(obj,target){</p>
+<p>}</p>
+<h3 id="清除定时器"><a href="#清除定时器" class="headerlink" title="清除定时器"></a>清除定时器</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;</span><br><span class="line">    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;</span><br><span class="line">    &lt;title&gt;Document&lt;/title&gt;</span><br><span class="line">    &lt;style&gt;</span><br><span class="line">        div &#123;</span><br><span class="line">            position: absolute;</span><br><span class="line">            width: 200px;</span><br><span class="line">            height: 200px;</span><br><span class="line">            background-color: pink;</span><br><span class="line">        &#125;</span><br><span class="line">    &lt;/style&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line"></span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;button&gt;点击&lt;/button&gt;</span><br><span class="line">    &lt;div&gt;123&lt;/div&gt;</span><br><span class="line">    &lt;script&gt;</span><br><span class="line">        function animate(obj, target) &#123;</span><br><span class="line">            clearInterval(obj.timer);</span><br><span class="line">            obj.timer = setInterval(function () &#123;</span><br><span class="line"></span><br><span class="line">                if (obj.offsetLeft &gt;= target) &#123;</span><br><span class="line">                    clearInterval(timer);</span><br><span class="line">                &#125;</span><br><span class="line">                else &#123;</span><br><span class="line">                    obj.style.marginLeft = obj.offsetLeft + 1 + &#x27;px&#x27;;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;, 1000)</span><br><span class="line">        &#125;</span><br><span class="line">        var div = document.querySelector(&quot;div&quot;);</span><br><span class="line">        var btn = document.querySelector(&quot;button&quot;);</span><br><span class="line">        btn.addEventListener(&quot;click&quot;, function () &#123;</span><br><span class="line">            animate(div, 300);</span><br><span class="line">        &#125;);</span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="缓动动画"><a href="#缓动动画" class="headerlink" title="缓动动画"></a>缓动动画</h3><p>运动速度缓慢降下来，目标值-现在的位置/10作为每次移动的距离步长</p>
+<h3 id="节流阀"><a href="#节流阀" class="headerlink" title="节流阀"></a>节流阀</h3><p>避免轮播图按钮连续点击造成播放过快</p>
+<p>利用回调函数，添加一个变量控制，锁住函数和解锁函数。</p>
+<p>设置一个var flag=true;</p>
+<p>if(flag){</p>
+<p>​    flag=false;//关闭水龙头</p>
+<p>​    do something;</p>
+<p>}</p>
+<p>回调函数运行完后flag=true;//打开水龙头</p>
+<h2 id="移动端网页特效"><a href="#移动端网页特效" class="headerlink" title="移动端网页特效"></a>移动端网页特效</h2><h3 id="touch事件-TouchEvent"><a href="#touch事件-TouchEvent" class="headerlink" title="touch事件 TouchEvent"></a>touch事件 TouchEvent</h3><p>touchstart：手触摸到一个DOM元素时触发</p>
+<p>touchmove:手指在一个DOM元素上滑动时触发</p>
+<p>touchend:手指从一个元素上移开时触发</p>
+<p>touches:正在触摸屏幕的所有手指的列表</p>
+<p>targetTouches：正在触摸当前DOM元素的手指列表</p>
+<p>changedTouches:手指状态发生改变的列表，从无到有，从有到无</p>
+<p>手指离开屏幕时，没有touches和targetTouches，只有changedTouches</p>
+<p>最常使用targetTouches</p>
+<h3 id="移动端拖动元素"><a href="#移动端拖动元素" class="headerlink" title="移动端拖动元素"></a>移动端拖动元素</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">    var div = document.querySelector(&quot;div&quot;);</span><br><span class="line">    var startX = 0;//手指初始坐标</span><br><span class="line">    var startY = 0;</span><br><span class="line">    var x = 0;//盒子的初始坐标</span><br><span class="line">    var y = 0;</span><br><span class="line">    div.addEventListener(&#x27;touchstart&#x27;, function (e) &#123;</span><br><span class="line">        startX = e.targetTouches[0].pageX;</span><br><span class="line">        startY = e.targetTouches[0].pageY;</span><br><span class="line">        x = this.offsetLeft;</span><br><span class="line">        y = this.offsetTop;</span><br><span class="line">    &#125;)</span><br><span class="line">    div.addEventListener(&#x27;touchmove&#x27;, function (e) &#123;</span><br><span class="line">        var moveX = e.targetTouches[0].pageX - startX;</span><br><span class="line">        var moveY = e.targetTouches[0].pageY - startY;</span><br><span class="line">        this.style.left = x + moveX + &#x27;px&#x27;;</span><br><span class="line">        this.style.top = y + moveY + &#x27;px&#x27;;</span><br><span class="line">        e.preventDefault();</span><br><span class="line">    &#125;)</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="classList属性"><a href="#classList属性" class="headerlink" title="classList属性"></a>classList属性</h2><p><img src="https://i.loli.net/2021/12/01/aknDpoFMYAIL8yK.png" alt="image-20211201211443069"></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;</span><br><span class="line">    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;</span><br><span class="line">    &lt;title&gt;Document&lt;/title&gt;</span><br><span class="line">    &lt;style&gt;</span><br><span class="line">        .bg &#123;</span><br><span class="line">            background-color: #000;</span><br><span class="line">        &#125;</span><br><span class="line">    &lt;/style&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line"></span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;button&gt;开关灯&lt;/button&gt;</span><br><span class="line">    &lt;div class=&quot;zx&quot;&gt;&lt;/div&gt;</span><br><span class="line">    &lt;script&gt;</span><br><span class="line">        var div = document.querySelector(&quot;div&quot;);</span><br><span class="line">        console.log(div.classList);</span><br><span class="line">        console.log(div.className);</span><br><span class="line">        var btn = document.querySelector(&quot;button&quot;);</span><br><span class="line">        btn.addEventListener(&#x27;click&#x27;, function () &#123;</span><br><span class="line">            document.body.classList.toggle(&#x27;bg&#x27;);</span><br><span class="line">        &#125;)</span><br><span class="line"></span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br></pre></td></tr></table></figure>
+
+<p>element.classList.add(‘类名’)：不会覆盖，className会覆盖</p>
+<p>element.classList.remove(‘类名’)</p>
+<p>element.classList.toggle(‘类名’)</p>
+<p><img src="https://i.loli.net/2021/12/01/CzO8hwVZk9mS4Ml.png" alt="image-20211201215412950"></p>
+<p><img src="https://i.loli.net/2021/12/01/pYoxnQTKXelZudk.png" alt="image-20211201215423092"></p>
+<h2 id="本地存储"><a href="#本地存储" class="headerlink" title="本地存储"></a>本地存储</h2><ol>
+<li>数据存储在用户浏览器</li>
+<li>设置，读取方便、甚至页面刷新也不丢是数据</li>
+<li>容量大，sessionStorage约5M，localStorage约20M</li>
+<li>只能存储字符串，可以将JSON.stringify()编码后存储</li>
+</ol>
+<h3 id="window-sessionStorage"><a href="#window-sessionStorage" class="headerlink" title="window.sessionStorage"></a>window.sessionStorage</h3><ol>
+<li>生命周期为关闭浏览器</li>
+<li>在同一个窗口下数据可以共享</li>
+<li>以key:value键值对实现</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sessionStorage.setItem(key,value)</span><br><span class="line">sessionStorage.getItem(key)</span><br><span class="line">sessionStorage.removeItem(key)</span><br><span class="line">sessionStorage.clear()</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="window-localStorage"><a href="#window-localStorage" class="headerlink" title="window.localStorage"></a>window.localStorage</h3><ol>
+<li>生命周期永久有效，除非手动删除，否则关闭页面也会存在</li>
+<li>可以多窗口共享，只要是同一浏览器</li>
+<li>以键值对的形式存储</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">localStorage.setItem(key,value)</span><br><span class="line">localStorage.setItem(key,value)</span><br><span class="line">localStorage.getItem(key)</span><br><span class="line">localStorage.removeItem(key)</span><br><span class="line">localStorage.clear()</span><br></pre></td></tr></table></figure>
+
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">zengxiang</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://zengxiang21.github.io/2021/12/03/javascript/">https://zengxiang21.github.io/2021/12/03/javascript/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://zengxiang21.github.io" target="_blank">zx的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://picsum.photos/id/888/5184/2916" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2021/12/03/jQuery/"><img class="prev-cover" src="https://picsum.photos/id/908/1920/1280" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">jQuery</div></div></a></div><div class="next-post pull-right"><a href="/2021/12/02/python+selenium%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E7%99%BB%E5%BD%95%E7%AD%89%E6%93%8D%E4%BD%9C/"><img class="next-cover" src="https://picsum.photos/id/861/5760/3840" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">python+selenium实现自动登录等操作</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/./img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">zengxiang</div><div class="author-info__description">zx的博客,欢迎访问</div></div><div class="card-info-data is-center"><div class="card-info-data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">11</div></a></div><div class="card-info-data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a></div><div class="card-info-data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/zengxiang21" target="_blank" title="Github"><i class="fab fa-github"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#javascript"><span class="toc-number">1.</span> <span class="toc-text">javascript</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#javascript%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F"><span class="toc-number">1.1.</span> <span class="toc-text">javascript执行顺序</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%8C%E6%AD%A5%E5%92%8C%E5%BC%82%E6%AD%A5"><span class="toc-number">1.1.1.</span> <span class="toc-text">同步和异步</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%8C%E6%AD%A5%E4%BB%BB%E5%8A%A1"><span class="toc-number">1.1.1.1.</span> <span class="toc-text">同步任务</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BC%82%E6%AD%A5%E4%BB%BB%E5%8A%A1"><span class="toc-number">1.1.1.2.</span> <span class="toc-text">异步任务</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%A7%E8%A1%8C%E6%9C%BA%E5%88%B6"><span class="toc-number">1.1.2.</span> <span class="toc-text">执行机制</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#location"><span class="toc-number">1.2.</span> <span class="toc-text">location</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#url"><span class="toc-number">1.2.1.</span> <span class="toc-text">url</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#navigator"><span class="toc-number">1.3.</span> <span class="toc-text">navigator</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#history"><span class="toc-number">1.4.</span> <span class="toc-text">history</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BD%91%E9%A1%B5%E7%89%B9%E6%95%88"><span class="toc-number">1.5.</span> <span class="toc-text">网页特效</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%83%E7%B4%A0%E5%81%8F%E7%A7%BB%E9%87%8Foffset"><span class="toc-number">1.5.1.</span> <span class="toc-text">元素偏移量offset</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A1%88%E4%BE%8B%EF%BC%9A%E6%8B%96%E5%8A%A8div"><span class="toc-number">1.5.2.</span> <span class="toc-text">案例：拖动div</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%83%E7%B4%A0%E5%8F%AF%E8%A7%86%E5%8C%BAclient"><span class="toc-number">1.5.3.</span> <span class="toc-text">元素可视区client</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%83%E7%B4%A0%E6%BB%9A%E5%8A%A8scroll"><span class="toc-number">1.5.4.</span> <span class="toc-text">元素滚动scroll</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AB%8B%E5%8D%B3%E6%89%A7%E8%A1%8C%E5%87%BD%E6%95%B0"><span class="toc-number">1.6.</span> <span class="toc-text">立即执行函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mouseover%E5%92%8Cmouseenter"><span class="toc-number">1.7.</span> <span class="toc-text">mouseover和mouseenter</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A8%E7%94%BB"><span class="toc-number">1.8.</span> <span class="toc-text">动画</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A8%E7%94%BB%E5%87%BD%E6%95%B0%E5%B0%81%E8%A3%85"><span class="toc-number">1.9.</span> <span class="toc-text">动画函数封装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B8%85%E9%99%A4%E5%AE%9A%E6%97%B6%E5%99%A8"><span class="toc-number">1.9.1.</span> <span class="toc-text">清除定时器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%93%E5%8A%A8%E5%8A%A8%E7%94%BB"><span class="toc-number">1.9.2.</span> <span class="toc-text">缓动动画</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8A%82%E6%B5%81%E9%98%80"><span class="toc-number">1.9.3.</span> <span class="toc-text">节流阀</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A7%BB%E5%8A%A8%E7%AB%AF%E7%BD%91%E9%A1%B5%E7%89%B9%E6%95%88"><span class="toc-number">1.10.</span> <span class="toc-text">移动端网页特效</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#touch%E4%BA%8B%E4%BB%B6-TouchEvent"><span class="toc-number">1.10.1.</span> <span class="toc-text">touch事件 TouchEvent</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A7%BB%E5%8A%A8%E7%AB%AF%E6%8B%96%E5%8A%A8%E5%85%83%E7%B4%A0"><span class="toc-number">1.10.2.</span> <span class="toc-text">移动端拖动元素</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#classList%E5%B1%9E%E6%80%A7"><span class="toc-number">1.11.</span> <span class="toc-text">classList属性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%AC%E5%9C%B0%E5%AD%98%E5%82%A8"><span class="toc-number">1.12.</span> <span class="toc-text">本地存储</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#window-sessionStorage"><span class="toc-number">1.12.1.</span> <span class="toc-text">window.sessionStorage</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#window-localStorage"><span class="toc-number">1.12.2.</span> <span class="toc-text">window.localStorage</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/03/24/objective-c/" title="Objective-C"><img src="https://picsum.photos/id/701/1858/1393" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Objective-C"/></a><div class="content"><a class="title" href="/2022/03/24/objective-c/" title="Objective-C">Objective-C</a><time datetime="2022-03-24T08:11:43.297Z" title="发表于 2022-03-24 16:11:43">2022-03-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/01/12/vue/" title="Vue"><img src="https://picsum.photos/id/306/1024/768" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Vue"/></a><div class="content"><a class="title" href="/2022/01/12/vue/" title="Vue">Vue</a><time datetime="2022-01-12T11:55:24.457Z" title="发表于 2022-01-12 19:55:24">2022-01-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/01/11/node/" title="Nodejs"><img src="https://picsum.photos/id/369/4692/3128" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Nodejs"/></a><div class="content"><a class="title" href="/2022/01/11/node/" title="Nodejs">Nodejs</a><time datetime="2022-01-11T12:42:19.228Z" title="发表于 2022-01-11 20:42:19">2022-01-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/12/12/Ajax/" title="Ajax"><img src="https://picsum.photos/id/144/4912/2760" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Ajax"/></a><div class="content"><a class="title" href="/2021/12/12/Ajax/" title="Ajax">Ajax</a><time datetime="2021-12-12T02:18:29.742Z" title="发表于 2021-12-12 10:18:29">2021-12-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/12/03/jQuery/" title="jQuery"><img src="https://picsum.photos/id/908/1920/1280" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="jQuery"/></a><div class="content"><a class="title" href="/2021/12/03/jQuery/" title="jQuery">jQuery</a><time datetime="2021-12-03T02:28:02.101Z" title="发表于 2021-12-03 10:28:02">2021-12-03</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By zengxiang</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
